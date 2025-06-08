@@ -15,14 +15,7 @@ namespace Tutorial5.Controllers
             _service = service;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddWashingMachine([FromBody] WachineMachineDto request)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-        }
+       
 
     }
 }
