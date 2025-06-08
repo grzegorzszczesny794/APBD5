@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tutorial5.Data;
 using Tutorial5.DTOs;
+using Tutorial5.Model;
 using Tutorial5.Models;
 
 namespace Tutorial5.Services
@@ -55,6 +56,48 @@ namespace Tutorial5.Services
                   )).ToList()
               ))
               .ToListAsync();
+        }
+
+        public async Task<CustomerResponse?> GetCustomerInfo(int idCustomer)
+        {
+            var customer = await _context.customers
+                .Include(c => c.PurchaseHistories)
+                    .ThenInclude(ph => ph.AvalaibleProgram)
+                    .ThenInclude(ap => ap.WachineMachine)
+                .Include(c => c.PurchaseHistories)
+                    .ThenInclude(ph => ph.AvalaibleProgram)
+                        .ThenInclude(ap => ap.Program)
+                .FirstOrDefaultAsync(c => c.CustomerId == idCustomer);
+
+
+            if (customer is null)
+                return null;
+
+            var result = new CustomerResponse
+            {
+                firstName = customer.FirstName,
+                lastName = customer.LastName,
+                phoneNumber = customer.PhoneNumber,
+                purchases = customer.PurchaseHistories.Select(ph => new PurchaseCustomerResponse
+                {
+                    date = ph.PurchaseDate,
+                    rating = ph?.Rating,
+                    price = ph.AvalaibleProgram?.Price,
+                    washingMachine = new PurchaseCustomerWashingMachineResponse
+                    {
+                        serial = ph.AvalaibleProgram.WachineMachine.SerialNumber,
+                        maxWeight = ph.AvalaibleProgram.WachineMachine.MaxWeight
+                    },
+                    program = new PurchaseCustomerProgramResponse
+                    {
+                        name = ph.AvalaibleProgram.Program.Name,
+                        duration = ph.AvalaibleProgram.Program.DurationMinutes
+                    }
+                }).OrderBy(p => p.date).ToList()
+            };
+
+            return result;
+
         }
     }
 }

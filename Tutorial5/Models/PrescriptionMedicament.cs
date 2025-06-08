@@ -1,16 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tutorial5.Models
 {
-    [Table("PrescriptionMedicament")]
+    //[Table("PrescriptionMedicament")]
     public class PrescriptionMedicament
     {
-        [Key]
+        //[Key]
         [Column(Order = 1)]
         [ForeignKey("Medicament")]
-        public int IdMedicament {  get; set; }
+        public int IdMedicament { get; set; }
         [Key]
         [Column(Order = 2)]
         [ForeignKey("Prescription")]

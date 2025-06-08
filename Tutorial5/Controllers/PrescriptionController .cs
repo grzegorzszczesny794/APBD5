@@ -15,8 +15,8 @@ namespace Tutorial5.Controllers
             var result = await dbService.AddPrescription(request);
 
             return result.IsFailure 
-                   ? BadRequest(result.Value) 
-                   : Ok(result.Error);
+                   ? BadRequest(result.Error) 
+                   : Ok(result.Value);
         }
     }
 }

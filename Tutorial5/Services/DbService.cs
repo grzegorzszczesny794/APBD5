@@ -9,6 +9,8 @@ public class DbService(DatabaseContext _context
                      , PrescriptionValidator _validator
                      , IRepo _repo) : IDbService
 {
+
+
     public async Task<Result<List<PatientResponse>>> GetPatientInfo(int IdPatient)
     {
         if (await _repo.GetPatientById(IdPatient) is null)
@@ -70,4 +72,17 @@ public class DbService(DatabaseContext _context
             return Result.Failure<int>($"An error occurred: {ex.Message}");
         }
     }
+
+    public async Task<Result<CustomerResponse>> GetCustomerInfo(int IdCustomer)
+    {
+
+        var result = await _repo.GetCustomerInfo(IdCustomer);
+
+        if (result == null)
+            return Result.Failure<CustomerResponse>($"Customer not exists");
+
+        return Result<CustomerResponse>.Success(result);
+    }
+
+ 
 }

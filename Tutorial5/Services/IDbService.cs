@@ -7,4 +7,6 @@ public interface IDbService
 {
     Task<Result<List<PatientResponse>>> GetPatientInfo(int IdPatient);
     Task<Result<int>> AddPrescription(PrescriptionCreateRequest request);
+
+    Task<Result<CustomerResponse>> GetCustomerInfo(int IdCustomer);
 }

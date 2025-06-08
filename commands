@@ -1,0 +1,7 @@
+Add-Migration InitialCreate
+Update-Database
+
+// jesli nie zadzia³a to usun¹c pliki migracji i tabelki w bazie i spróbowaæ ponownie
+
+https://www.entityframeworktutorial.net/efcore/install-entity-framework-core.aspx
+

@@ -10,5 +10,7 @@ namespace Tutorial5.Services
         Task<Prescription> AddPrescription(Prescription prescription);
         Task AddPrescriptionMedicaments(IEnumerable<PrescriptionMedicament> prescriptionMedicaments);
         Task<List<PatientResponse>> GetPatientInfo(int idPatient);
+        Task<CustomerResponse?> GetCustomerInfo(int idCustomer);
+        Task<bool> 
     }
 }
