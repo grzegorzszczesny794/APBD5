@@ -15,7 +15,5 @@ namespace Tutorial5.Controllers
             _service = service;
         }
 
-       
-
     }
 }
